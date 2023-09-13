@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <title>Pdf Converter</title>
+    <link rel="shortcut icon" href="1.jpeg" type="image/x-icon" />
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <img id="showImg">
+<div class="button">
+        <div class="upload">
+            <input type="file" onchange="loadFile(event)" name="" accept=".png,.jpg,.jpeg,.txt">Upload Image
+        </div>
+        <button onclick="pdfDwon()">Download to PDF</button>
+    </div>
+    </div>
+</body>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
+<script defer>
+    var newImage, showImg;
+
+    function loadFile(event){
+
+        showImg=document.getElementById('showImg');
+
+        showImg.scr=URL.createObjectURL(event.target.files[0]);
+
+        newImage=document.createElement('img');
+        newImage.src=URL.createObjectURL(event.target.files[0]);
+
+showImg.onload=function(){
+    URL.revokeObjectURL(showImg.src);
+}
+
+    };
+
+    function pdfDwon(){
+        console.log(newImage);
+        var doc=new jsPDF();
+        doc.addImage(newImage,10,10);
+        doc.save('ImgToPDF.pdf');
+    }
+</script>
+</html>
